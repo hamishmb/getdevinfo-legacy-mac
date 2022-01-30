@@ -1,0 +1,35 @@
+default:
+  image: python:3.9
+  before_script:
+    - apt-get update
+    - apt-get install -y lshw lvm2 util-linux binutils coreutils pylint lsb-release python3-sphinx dvipng 	imagemagick-6.q16 latexmk sphinx-doc libjs-mathjax texlive-fonts-recommended texlive-latex-base texlive-latex-recommended texlive-latex-extra xzdec
+    - python --version
+    - lsb_release -a
+    - pip install -U pip beautifulsoup4 lxml
+
+stages:
+    - Static Analysis
+    - Tests
+    - Doc Generation
+
+pylint:
+  stage: Static Analysis
+  allow_failure: true
+  script:
+    - ls -l
+    - pylint getdevinfo/*.py
+
+pyunit:
+  stage: Tests
+  script:
+    - cd getdevinfo
+    - ls -l
+    - python3 ./tests.py
+
+sphinx:
+  stage: Doc Generation
+  script:
+    - cd docs
+    - make html
+    - make epub
+    - make latexpdf
