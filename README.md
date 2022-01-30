@@ -1,6 +1,10 @@
 # getdevinfo
 
-This repository holds my new getdevinfo module. This module was originally integreted directly into the source code of Wine Autostart, DDRescue-GUI, and WxFixBoot, but has now been separated for ease of maintenance. Because it's on GitLab (https://gitlab.com/hamishmb/getdevinfo) and on PyPI (the Python Package Index) (https://pypi.org/project/getdevinfo/), and released under the GPLv3+, this means other people can use it too.
+This repository holds the getdevinfo module. This module was originally integreted directly into the source code of Wine Autostart, DDRescue-GUI, and WxFixBoot, but has now been separated for ease of maintenance. This version is for legacy Mac OS X 10.5 (PowerPC) and 10.6 (32-bit Intel). Mac OS X 10.6 - 10.9 (64-bit Intel) are also supported pending testing.
+
+Other platforms are not supported. Please use the latest version of getdevinfo at https://gitlab.com/hamishmb/getdevinfo for newer and other platforms.
+
+This version is only supported on Python 2, but may work on Python 3 as well.
 
 Description of Package
 ======================
@@ -26,36 +30,27 @@ Source Distribution
 
 Run:
 
-"python setup.py sdist"
+"python2 setup.py sdist"
 
 Wheels
 ------
 
 Make sure you've installed the "wheel" package:
 
-"pip/pip3 install wheel"
-
-Universal Wheel
----------------
-
-This tool runs unmodified on both python 3 and 2, so this is the recommended choice.
-
-"python setup.py bdist_wheel --universal"
+"pip/pip2 install wheel"
 
 Pure Python Wheel
 -----------------
 
-Not sure why you'd do this, but you can run:
+The recommended way to create a wheel on this version of GetDevInfo:
 
-"python2/python3 setup.py bdist_wheel"
-
-to acheive this if you want.
+"python2 setup.py bdist_wheel"
 
 
 Distribution Packages
 =====================
 
-You can find these at https://www.launchpad.net/getdevinfo or https://www.hamishmb.com/html/downloads.php?program_name=getdevinfo.
+Distribution packages are not provided for this version of getdevinfo, as it is intended for use in DDRescue-GUI bundles for legacy Macs. If you require 
 
 Documentation
 =============
@@ -66,15 +61,9 @@ Running The Tests
 
 These have to be run as the superuser, because low-level access to hardware is required to gather information.
 
-The process for running these is the same on both Linux and macOS. It can be done on both Python 2 and Python 3.
-
 Without Coverage Reporting
 --------------------------
 Change directory to the getdevinfo subfolder, and run:
-
-"sudo python3 ./tests.py"
-
-or:
 
 "sudo python2 ./tests.py"
 
@@ -84,15 +73,11 @@ Make sure you have installed Coverage.py using pip or your package manager.
 
 Change directory to the getdevinfo subfolder, and run:
 
-"sudo python3 -m coverage run --rcfile=../.coveragerc ./tests.py"
-
-or:
-
 "sudo python2 -m coverage run --rcfile=../.coveragerc ./tests.py"
 
 To run the tests. Then run:
 
-"sudo python3 -m coverage report"
+"sudo python2 -m coverage report"
 
 or:
 
