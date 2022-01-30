@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>Documentation for the linux module</title>
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-getdevinfo.linux">
+<span id="documentation-for-the-linux-module"></span><h1>Documentation for the linux module</h1>
+<p>This is the part of the package that contains the tools and information
+getters for Linux. This would normally be called from the getdevinfo
+module, but you can call it directly if you like.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can import this submodule directly, but it might result
+in strange behaviour, or not work on your platform if you
+import the wrong one. That is not how the package is intended
+to be used, except if you want to use the get_block_size()
+function to get a block size, as documented below.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Feel free to experiment, but be aware that you may be able to
+cause crashes, exceptions, and generally weird situations by calling
+these methods directly if you get it wrong. A good place to
+look if you’re interested in this is the unit tests (in tests/).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This module won’t work properly unless it is executed as root.</p>
+</div>
+<dl class="function">
+<dt id="getdevinfo.linux.assemble_lvm_disk_info">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">assemble_lvm_disk_info</code><span class="sig-paren">(</span><em>line_counter</em>, <em>testing=False</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function is used to assemble LVM disk info into the dictionary.</p>
+<p>Like get_device_info(), and get_partition_info(), it uses some of the
+helper functions here.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>line_counter (int):   The line in the output that informtion for a</dt>
+<dd><p>particular logical volume begins.</p>
+</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><p>testing (bool):       Used during unit tests. Default = False.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assemble_lvm_disk_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">anInt</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>OR:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assemble_lvm_disk_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">anInt</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">testing</span><span class="o">=&lt;</span><span class="n">aBool</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.compute_block_size">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">compute_block_size</code><span class="sig-paren">(</span><em>stdout</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>Used to process and tidy up the block size output from blockdev.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>stdout (str):       blockdev’s output.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>int/None: The block size:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None - Failed!</p></li>
+<li><p>int  - The block size.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_block_size</span><span class="p">(</span><span class="o">&lt;</span><span class="n">stdoutFromBlockDev</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_block_size">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_block_size</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p><strong>Public</strong></p>
+<p>This function uses the blockdev command to get the block size
+of the given device.</p>
+<dl>
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>disk (str):     The partition/device/logical volume that</dt>
+<dd><p>we want the block size for.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p>int/None. The block size.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None - Failed!</p></li>
+<li><p>int  - The block size.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">block_size</span> <span class="o">=</span> <span class="n">get_block_size</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDeviceName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_boot_record">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_boot_record</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the MBR/PBR of a given disk.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>disk (str):   The name of a partition/device.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>tuple (string, string). The boot record (raw, any readable strings):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(“Unknown”, “Unknown”)     - Couldn’t read it.</p></li>
+<li><p>Anything else              - The PBR/MBR and any readable strings therein.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">boot_record</span><span class="p">,</span> <span class="n">boot_record_strings</span> <span class="o">=</span> <span class="n">get_boot_record</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDiskName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_capabilities">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_capabilities</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the capabilities from the structure
+generated by parsing lshw’s XML output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>node:   Represents a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>list. The capabilities:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[]            - Couldn’t find them.</p></li>
+<li><p>Anything else - The capabilities - as unicode strings.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">capabilities</span> <span class="o">=</span> <span class="n">get_capabilities</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_capacity">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_capacity</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the capacity from the structure generated
+by parsing lshw’s XML output. Also rounds it to a human-
+readable form, and returns both sizes.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>node:   Represents a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>tuple (string, string). The sizes (bytes, human-readable):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(“Unknown”, “Unknown”)     - Couldn’t find them.</p></li>
+<li><p>Anything else              - The sizes.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">raw_size</span><span class="p">,</span> <span class="n">human_size</span> <span class="o">=</span> <span class="n">get_capacity</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_device_info">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_device_info</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gathers and assembles information for devices (whole disks).
+It employs some simple logic and the other functions defined in this
+module to do its work.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>node:       A “node” representing a device, generated from lshw’s XML</dt>
+<dd><p>output.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string.     The name of the device.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">host_disk</span> <span class="o">=</span> <span class="n">get_device_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_file_system">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_file_system</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the file system from the structure
+generated by parsing lshw’s XML output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>node:   Represents a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The file system:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The file system.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_system</span> <span class="o">=</span> <span class="n">get_file_system</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_id">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_id</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the ID of a given partition or device.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>disk (str):   The name of a partition/device.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The ID:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The ID.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disk_id</span> <span class="o">=</span> <span class="n">get_id</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDiskName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_info">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>This function is the Linux-specific way of getting disk information.
+It makes use of the lshw, blkid, and lvdisplay commands to gather
+information.</p>
+<p>It uses the other functions in this module to acheive its work, and
+it <strong>doesn’t</strong> return the disk infomation. Instead, it is left as a
+global attribute in this module (DISKINFO).</p>
+<dl class="simple">
+<dt>Raises:</dt>
+<dd><p>Nothing, hopefully, but errors have a small chance of propagation
+up to here here. Wrap it in a try:, except: block if you are worried.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_lv_aliases">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_lv_aliases</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>“name” here means path eg /dev/mapper/fedora/root.</p>
+</div>
+<p>This function gets the names of a logical volume.
+There may be one or more aliases as well as a “default”
+name. Find and return all of them.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><p>line (int):   The line number where the LV name can be found.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>tuple (string, list). The aliases (default_name, all aliases).</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">default_name</span><span class="p">,</span> <span class="n">alias_list</span> <span class="o">=</span> <span class="n">get_lv_aliases</span><span class="p">(</span><span class="o">&lt;</span><span class="n">anLVName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_lv_and_vg_name">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_lv_and_vg_name</code><span class="sig-paren">(</span><em>volume</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>“name” here means the names of the logical volume and
+the volume group by themselves. eg volume “root”, in
+volume group “fedora.”</p>
+</div>
+<p>This function gets the name of the logical volume (LV), and the
+name of the volume group (VG) it belongs to.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>volume (str):   The path for a logical volume.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>tuple (string, string). The VG, and LV name (vg_name, lv_name):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(“Unknown”, “Unknown”) - Couldn’t find them.</p></li>
+<li><p>Anything else          - The VG and LV names.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vg_name</span><span class="p">,</span> <span class="n">lv_name</span> <span class="o">=</span> <span class="n">get_lv_and_vg_name</span><span class="p">(</span><span class="o">&lt;</span><span class="n">anLVPath</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_lv_file_system">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_lv_file_system</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the file system of a logical volume.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><p>disk (str):   The name of a logical volume.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The file system.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_system</span> <span class="o">=</span> <span class="n">get_lv_file_system</span><span class="p">(</span><span class="o">&lt;</span><span class="n">anLVName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_partition_info">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_partition_info</code><span class="sig-paren">(</span><em>subnode</em>, <em>host_disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gathers and assembles information for partitions.
+It employs some simple logic and the other functions defined in this
+module to do its work.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>subnode:            A “node” representing a partition, generated</dt>
+<dd><p>from lshw’s XML output.</p>
+</dd>
+<dt>host_disk (str):    The “parent” or “host” device. eg: for</dt>
+<dd><p>/dev/sda1, the host disk would be /dev/sda.
+Used to organise everything nicely in the
+disk info dictionary.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string.     The name of the partition.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">volume</span> <span class="o">=</span> <span class="n">get_device_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_partitioning">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_partitioning</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the partition scheme from the
+structure generated by parsing lshw’s XML output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>disk (str):   The name of a device/partition in</dt>
+<dd><p>the disk info dictionary.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string (str). The partition scheme:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><dl class="simple">
+<dt>“mbr”         - Old-style MBR partitioning</dt>
+<dd><p>for BIOS systems.</p>
+</dd>
+</dl>
+</li>
+<li><p>“gpt”         - New-style GPT partitioning.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">partitioning</span> <span class="o">=</span> <span class="n">get_partitioning</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDiskName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_product">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_product</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the product from the structure generated
+by parsing lshw’s XML output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>node:   Represents a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The product:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The product.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span> <span class="o">=</span> <span class="n">get_product</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_uuid">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_uuid</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the UUID of a given partition.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>disk (str):   The name of a <strong>partition</strong>.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The UUID:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The UUID.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uuid</span> <span class="o">=</span> <span class="n">get_uuid</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aPartitionName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.get_vendor">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">get_vendor</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the vendor from the structure generated
+by parsing lshw’s XML output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>node:   Represents a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The vendor:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The vendor.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vendor</span> <span class="o">=</span> <span class="n">get_vendor</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.parse_lsblk_output">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">parse_lsblk_output</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function is used to get NVME disk information from the output of lsblk.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will only remain here until lshw adds support for NVME disk detection -
+this is a temporary fix.</p>
+</div>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_lsblk_output</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.linux.parse_lvm_output">
+<code class="descclassname">getdevinfo.linux.</code><code class="descname">parse_lvm_output</code><span class="sig-paren">(</span><em>testing=False</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function is used to get LVM partition information from the
+output of lvdisplay –maps.</p>
+<dl class="simple">
+<dt>Kwargs:</dt>
+<dd><p>testing (bool):     Used during unit tests. Default = False.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_lvm_output</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>OR:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_lvm_output</span><span class="p">(</span><span class="n">testing</span><span class="o">=&lt;</span><span class="n">aBool</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

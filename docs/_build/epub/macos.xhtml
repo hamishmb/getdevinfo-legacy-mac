@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>Documentation for the macos module</title>
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-getdevinfo.macos">
+<span id="documentation-for-the-macos-module"></span><h1>Documentation for the macos module</h1>
+<p>This is the part of the package that contains the tools and information
+getters for macOS. This would normally be called from the getdevinfo
+module, but you can call it directly if you like.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can import this submodule directly, but it might result
+in strange behaviour, or not work on your platform if you
+import the wrong one. That is not how the package is intended
+to be used, except if you want to use the get_block_size()
+function to get a block size, as documented below.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Feel free to experiment, but be aware that you may be able to cause
+crashes, exceptions, and generally weird situations by calling
+these methods directly if you get it wrong. A good place to
+look if you’re interested in this is the unit tests (in tests/).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This module won’t work properly unless it is executed as root.</p>
+</div>
+<dl class="function">
+<dt id="getdevinfo.macos.compute_block_size">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">compute_block_size</code><span class="sig-paren">(</span><em>disk</em>, <em>stdout</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>Used to process and tidy up the block size output from diskutil info.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>stdout (str):       diskutil info’s output.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>int/None: The block size:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None - Failed!</p></li>
+<li><p>int  - The block size.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_block_size</span><span class="p">(</span><span class="o">&lt;</span><span class="n">stdoutFromDiskutil</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_block_size">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_block_size</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p><strong>Public</strong></p>
+<p>This function uses the diskutil info command to get the block size
+of the given device.</p>
+<dl>
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>disk (str):     The partition/device that</dt>
+<dd><p>we want the block size for.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p>int/None. The block size.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None - Failed!</p></li>
+<li><p>int  - The block size.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">block_size</span> <span class="o">=</span> <span class="n">get_block_size</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDeviceName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_boot_record">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_boot_record</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Not yet implemented, returns (“Unknown”, “Unknown”).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_capabilities">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_capabilities</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Not yet implemented, returns “Unknown”</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_capacity">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_capacity</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the capacity of the disk currently referenced in
+the diskutil info output we’re storing. You can’t really use this standalone.
+Also rounds it to a human-readable form, and returns both sizes.</p>
+<dl>
+<dt>Returns:</dt>
+<dd><p>tuple (string, string). The sizes (bytes, human-readable):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(“Unknown”, “Unknown”)     - Couldn’t find them.</p></li>
+<li><p>Anything else              - The sizes.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">raw_size</span><span class="p">,</span> <span class="n">human_size</span> <span class="o">=</span> <span class="n">get_capacity</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_description">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_description</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function generates a human-readable description of the given disk.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><p>disk (str):   Name of a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="simple">
+<dt>string. The description: This may contain various bits of info, or not,</dt>
+<dd><p>depending on what macOS knows about the disk.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">description</span> <span class="o">=</span> <span class="n">get_description</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_device_info">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_device_info</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gathers and assembles information for devices (whole disks).
+It employs some simple logic and the other functions defined in this
+module to do its work.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><p>disk (str): The name of a device, without the leading /dev. eg: disk1</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string.     The name of the device.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">host_disk</span> <span class="o">=</span> <span class="n">get_device_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_file_system">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_file_system</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Not yet implemented, returns “Unknown”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_id">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_id</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Not yet implemented, returns “Unknown”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_info">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>This function is the macOS-specific way of getting disk information.
+It makes use of the diskutil list, and diskutil info commands to gather
+information.</p>
+<p>It uses the other functions in this module to acheive its work, and
+it <strong>doesn’t</strong> return the disk infomation. Instead, it is left as a
+global attribute in this module (DISKINFO).</p>
+<dl class="simple">
+<dt>Raises:</dt>
+<dd><p>Nothing, hopefully, but errors have a small chance of propagation
+up to here here. Wrap it in a try:, except: block if you are worried.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_partition_info">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_partition_info</code><span class="sig-paren">(</span><em>disk</em>, <em>host_disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gathers and assembles information for partitions.
+It employs some simple logic and the other functions defined in this
+module to do its work.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>disk (str):         The name of a partition, without the leading</dt>
+<dd><p>/dev. eg: disk1s1</p>
+</dd>
+<dt>host_disk (str):    The “parent” or “host” device. eg: for</dt>
+<dd><p>/dev/disk1s1, the host disk would be /dev/disk1.
+Used to organise everything nicely in the
+disk info dictionary.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string.     The name of the partition.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">volume</span> <span class="o">=</span> <span class="n">get_device_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">aHostDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_partitioning">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_partitioning</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Not yet implemented, returns “Unknown”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_product">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_product</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the product of the given disk.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>disk (str):   Name of a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The product:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The product.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span> <span class="o">=</span> <span class="n">get_product</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_uuid">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_uuid</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Not yet implemented, returns “Unknown”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_vendor">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_vendor</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the vendor of the given disk.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>disk (str):   Name of a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The vendor:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The vendor.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vendor</span> <span class="o">=</span> <span class="n">get_vendor</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.is_partition">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">is_partition</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function determines if a disk is a partition or not.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>disk (str):   Name of a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>bool:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>True  - Is a partition.</p></li>
+<li><p>False - Not a partition.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_a_partition</span> <span class="o">=</span> <span class="n">is_partition</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

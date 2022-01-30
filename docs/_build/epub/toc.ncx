@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta name="dtb:uid" content="unknown"/>
+    <meta name="dtb:depth" content="2"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>GetDevInfo</text>
+  </docTitle>
+  <navMap>    
+    <navPoint id="navPoint1" playOrder="1">
+      <navLabel>
+        <text>Welcome to GetDevInfo’s API documentation!</text>
+      </navLabel>
+      <content src="index.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint2" playOrder="2">
+      <navLabel>
+        <text>Documentation for the output format</text>
+      </navLabel>
+      <content src="format.xhtml" />  
+      <navPoint id="navPoint3" playOrder="2">
+        <navLabel>
+          <text>Documentation for the output format</text>
+        </navLabel>
+        <content src="format.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint4" playOrder="3">
+        <navLabel>
+          <text>For each device and partition:</text>
+        </navLabel>
+        <content src="format.xhtml#for-each-device-and-partition" />  
+      </navPoint>
+      <navPoint id="navPoint5" playOrder="4">
+        <navLabel>
+          <text>Inside this sub-dictionary (standard devices):</text>
+        </navLabel>
+        <content src="format.xhtml#inside-this-sub-dictionary-standard-devices" />  
+      </navPoint>
+      <navPoint id="navPoint6" playOrder="5">
+        <navLabel>
+          <text>Inside this sub-dictionary (specifics for LVM disks on Linux):</text>
+        </navLabel>
+        <content src="format.xhtml#inside-this-sub-dictionary-specifics-for-lvm-disks-on-linux" />  
+      </navPoint>
+      <navPoint id="navPoint7" playOrder="6">
+        <navLabel>
+          <text>Inside this sub-dictionary (NVME disks):</text>
+        </navLabel>
+        <content src="format.xhtml#inside-this-sub-dictionary-nvme-disks" />  
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint8" playOrder="7">
+      <navLabel>
+        <text>Documentation for the getdevinfo module</text>
+      </navLabel>
+      <content src="getdevinfo.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint9" playOrder="8">
+      <navLabel>
+        <text>Documentation for the linux module</text>
+      </navLabel>
+      <content src="linux.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint10" playOrder="9">
+      <navLabel>
+        <text>Documentation for the cygwin module</text>
+      </navLabel>
+      <content src="cygwin.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint11" playOrder="10">
+      <navLabel>
+        <text>Documentation for the macos module</text>
+      </navLabel>
+      <content src="macos.xhtml" />  
+    </navPoint>
+  </navMap>
+</ncx>

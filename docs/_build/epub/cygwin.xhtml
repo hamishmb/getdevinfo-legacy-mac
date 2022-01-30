@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>Documentation for the cygwin module</title>
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-getdevinfo.cygwin">
+<span id="documentation-for-the-cygwin-module"></span><h1>Documentation for the cygwin module</h1>
+<p>This is the part of the package that contains the tools and information
+getters for Windows/Cygwin. This would normally be called from the getdevinfo
+module, but you can call it directly if you like.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can import this submodule directly, but it might result
+in strange behaviour, or not work on your platform if you
+import the wrong one. That is not how the package is intended
+to be used.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Feel free to experiment, but be aware that you may be able to
+cause crashes, exceptions, and generally weird situations by calling
+these methods directly if you get it wrong. A good place to
+look if you’re interested in this is the unit tests (in tests/).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This module won’t work properly unless it is executed as root.</p>
+</div>
+<dl class="function">
+<dt id="getdevinfo.cygwin.compute_block_size">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">compute_block_size</code><span class="sig-paren">(</span><em>stdout</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>Used to process and tidy up the block size output from smartctl.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>stdout (str):       The block size.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>int/None: The block size:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None - Failed!</p></li>
+<li><p>int  - The block size.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_block_size</span><span class="p">(</span><span class="o">&lt;</span><span class="n">stdoutFromBlockDev</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_block_size">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_block_size</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p><strong>Public</strong></p>
+<p>This function uses the smartctl command to get the block size
+of the given device.</p>
+<dl>
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>disk (str):     The partition/device/logical volume that</dt>
+<dd><p>we want the block size for.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p>int/None. The block size.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None - Failed!</p></li>
+<li><p>int  - The block size.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">block_size</span> <span class="o">=</span> <span class="n">get_block_size</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDeviceName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_boot_record">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_boot_record</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the MBR/PBR of a given disk.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>disk (str):   The name of a partition/device.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>tuple (string, string). The boot record (raw, any readable strings):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(“Unknown”, “Unknown”)     - Couldn’t read it.</p></li>
+<li><p>Anything else              - The PBR/MBR and any readable strings therein.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">boot_record</span><span class="p">,</span> <span class="n">boot_record_strings</span> <span class="o">=</span> <span class="n">get_boot_record</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDiskName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_capabilities">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_capabilities</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the capabilities from the structure generated
+by parsing smartctl’s output.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not yet implemented on Cygwin, returns empty list.</p>
+</div>
+<dl>
+<dt>Args:</dt>
+<dd><p>data (dict):   Parsed JSON from smartctl.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>list. The capabilities:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[]            - Couldn’t find them.</p></li>
+<li><p>Anything else - The capabilities - as unicode strings.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">capabilities</span> <span class="o">=</span> <span class="n">get_capabilities</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_capacity">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_capacity</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the vendor from the structure generated
+by parsing smartctl’s output. Also rounds it to a human-readable
+form, and returns both pieces of data.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>data:   Parsed JSON from smartctl.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>tuple (string, string). The sizes (bytes, human-readable):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(“Unknown”, “Unknown”)     - Couldn’t find them.</p></li>
+<li><p>Anything else              - The sizes.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">raw_size</span><span class="p">,</span> <span class="n">human_size</span> <span class="o">=</span> <span class="n">get_capacity</span><span class="p">(</span><span class="o">&lt;</span><span class="n">smartctl</span><span class="o">-</span><span class="n">data</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_description">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_description</code><span class="sig-paren">(</span><em>data</em>, <em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function creates a description from the structure generated
+by parsing smartctl’s output.</p>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><p>data:         Parsed JSON from smartctl.
+disk (str):   Name of a device/partition.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="simple">
+<dt>string. The description: This may contain various bits of info, or not,</dt>
+<dd><p>depending on what macOS knows about the disk.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">description</span> <span class="o">=</span> <span class="n">get_description</span><span class="p">(</span><span class="o">&lt;</span><span class="n">smartctl</span><span class="o">-</span><span class="n">data</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_device_info">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_device_info</code><span class="sig-paren">(</span><em>host_disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gathers and assembles information for devices (whole disks).
+It employs some simple logic and the other functions defined in this
+module to do its work.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Functionality not yet complete.</p>
+</div>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><p>host_disk:  The name of the device.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string.     The name of the device.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">host_disk</span> <span class="o">=</span> <span class="n">get_device_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_file_system">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_file_system</code><span class="sig-paren">(</span><em>output</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the file system from
+blkid’s output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>output (list):   Output from blkid.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The file system:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The file system.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_system</span> <span class="o">=</span> <span class="n">get_file_system</span><span class="p">(</span><span class="o">&lt;</span><span class="n">blkid</span><span class="o">-</span><span class="n">output</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_id">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_id</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the ID of a given partition or device.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not yet implemented on Cygwin.</p>
+</div>
+<dl>
+<dt>Args:</dt>
+<dd><p>disk (str):   The name of a partition/device.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The ID:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The ID.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disk_id</span> <span class="o">=</span> <span class="n">get_id</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDiskName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_info">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>This function is the Cygwin-specific way of getting disk information.
+It makes use of the smartctl and blkid commands to gather
+information.</p>
+<p>It uses the other functions in this module to acheive its work, and
+it <strong>doesn’t</strong> return the disk infomation. Instead, it is left as a
+global attribute in this module (DISKINFO).</p>
+<dl class="simple">
+<dt>Raises:</dt>
+<dd><p>Nothing, hopefully, but errors have a small chance of propagation
+up to here here. Wrap it in a try:, except: block if you are worried.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_partition_info">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_partition_info</code><span class="sig-paren">(</span><em>subnode</em>, <em>host_disk</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gathers and assembles information for partitions.
+It employs some simple logic and the other functions defined in this
+module to do its work.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not yet implemented on Cygwin - returns None.</p>
+</div>
+<dl class="simple">
+<dt>Args:</dt>
+<dd><dl class="simple">
+<dt>subnode:            A “node” representing a partition, generated</dt>
+<dd><p>from lshw’s XML output.</p>
+</dd>
+<dt>host_disk (str):    The “parent” or “host” device. eg: for</dt>
+<dd><p>/dev/sda1, the host disk would be /dev/sda.
+Used to organise everything nicely in the
+disk info dictionary.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string.     The name of the partition.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">volume</span> <span class="o">=</span> <span class="n">get_device_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_partitioning">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_partitioning</code><span class="sig-paren">(</span><em>output</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the partition scheme from
+blkid’s output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>output (list):   Output from blkid.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string (str). The partition scheme:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><dl class="simple">
+<dt>“mbr”         - Old-style MBR partitioning</dt>
+<dd><p>for BIOS systems.</p>
+</dd>
+</dl>
+</li>
+<li><p>“gpt”         - New-style GPT partitioning.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">partitioning</span> <span class="o">=</span> <span class="n">get_partitioning</span><span class="p">(</span><span class="o">&lt;</span><span class="n">blkid</span><span class="o">-</span><span class="n">output</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_product">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_product</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the product from the structure generated
+by parsing smartctl’s output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>data:   Parsed JSON from smartctl.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The product:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The product.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span> <span class="o">=</span> <span class="n">get_product</span><span class="p">(</span><span class="o">&lt;</span><span class="n">smartctl</span><span class="o">-</span><span class="n">data</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_uuid">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_uuid</code><span class="sig-paren">(</span><em>output</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the partition scheme from
+blkid’s output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>output (list):   Output from blkid.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The UUID:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The UUID.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uuid</span> <span class="o">=</span> <span class="n">get_uuid</span><span class="p">(</span><span class="o">&lt;</span><span class="n">blkid</span><span class="o">-</span><span class="n">output</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.cygwin.get_vendor">
+<code class="descclassname">getdevinfo.cygwin.</code><code class="descname">get_vendor</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the vendor from the structure generated
+by parsing smartctl’s output.</p>
+<dl>
+<dt>Args:</dt>
+<dd><p>data:   Parsed JSON from smartctl.</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>string. The vendor:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Unknown”     - Couldn’t find it.</p></li>
+<li><p>Anything else - The vendor.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vendor</span> <span class="o">=</span> <span class="n">get_vendor</span><span class="p">(</span><span class="o">&lt;</span><span class="n">smartctl</span><span class="o">-</span><span class="n">data</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+\indexentry{getdevinfo.getdevinfo (module)@\spxentry{getdevinfo.getdevinfo}\spxextra{module}|hyperpage}{9}
+\indexentry{get\_info() (in module getdevinfo.getdevinfo)@\spxentry{get\_info()}\spxextra{in module getdevinfo.getdevinfo}|hyperpage}{9}
+\indexentry{getdevinfo.linux (module)@\spxentry{getdevinfo.linux}\spxextra{module}|hyperpage}{11}
+\indexentry{assemble\_lvm\_disk\_info() (in module getdevinfo.linux)@\spxentry{assemble\_lvm\_disk\_info()}\spxextra{in module getdevinfo.linux}|hyperpage}{11}
+\indexentry{compute\_block\_size() (in module getdevinfo.linux)@\spxentry{compute\_block\_size()}\spxextra{in module getdevinfo.linux}|hyperpage}{11}
+\indexentry{get\_block\_size() (in module getdevinfo.linux)@\spxentry{get\_block\_size()}\spxextra{in module getdevinfo.linux}|hyperpage}{12}
+\indexentry{get\_boot\_record() (in module getdevinfo.linux)@\spxentry{get\_boot\_record()}\spxextra{in module getdevinfo.linux}|hyperpage}{12}
+\indexentry{get\_capabilities() (in module getdevinfo.linux)@\spxentry{get\_capabilities()}\spxextra{in module getdevinfo.linux}|hyperpage}{12}
+\indexentry{get\_capacity() (in module getdevinfo.linux)@\spxentry{get\_capacity()}\spxextra{in module getdevinfo.linux}|hyperpage}{12}
+\indexentry{get\_device\_info() (in module getdevinfo.linux)@\spxentry{get\_device\_info()}\spxextra{in module getdevinfo.linux}|hyperpage}{13}
+\indexentry{get\_file\_system() (in module getdevinfo.linux)@\spxentry{get\_file\_system()}\spxextra{in module getdevinfo.linux}|hyperpage}{13}
+\indexentry{get\_id() (in module getdevinfo.linux)@\spxentry{get\_id()}\spxextra{in module getdevinfo.linux}|hyperpage}{13}
+\indexentry{get\_info() (in module getdevinfo.linux)@\spxentry{get\_info()}\spxextra{in module getdevinfo.linux}|hyperpage}{13}
+\indexentry{get\_lv\_aliases() (in module getdevinfo.linux)@\spxentry{get\_lv\_aliases()}\spxextra{in module getdevinfo.linux}|hyperpage}{14}
+\indexentry{get\_lv\_and\_vg\_name() (in module getdevinfo.linux)@\spxentry{get\_lv\_and\_vg\_name()}\spxextra{in module getdevinfo.linux}|hyperpage}{14}
+\indexentry{get\_lv\_file\_system() (in module getdevinfo.linux)@\spxentry{get\_lv\_file\_system()}\spxextra{in module getdevinfo.linux}|hyperpage}{14}
+\indexentry{get\_partition\_info() (in module getdevinfo.linux)@\spxentry{get\_partition\_info()}\spxextra{in module getdevinfo.linux}|hyperpage}{15}
+\indexentry{get\_partitioning() (in module getdevinfo.linux)@\spxentry{get\_partitioning()}\spxextra{in module getdevinfo.linux}|hyperpage}{15}
+\indexentry{get\_product() (in module getdevinfo.linux)@\spxentry{get\_product()}\spxextra{in module getdevinfo.linux}|hyperpage}{15}
+\indexentry{get\_uuid() (in module getdevinfo.linux)@\spxentry{get\_uuid()}\spxextra{in module getdevinfo.linux}|hyperpage}{15}
+\indexentry{get\_vendor() (in module getdevinfo.linux)@\spxentry{get\_vendor()}\spxextra{in module getdevinfo.linux}|hyperpage}{16}
+\indexentry{parse\_lsblk\_output() (in module getdevinfo.linux)@\spxentry{parse\_lsblk\_output()}\spxextra{in module getdevinfo.linux}|hyperpage}{16}
+\indexentry{parse\_lvm\_output() (in module getdevinfo.linux)@\spxentry{parse\_lvm\_output()}\spxextra{in module getdevinfo.linux}|hyperpage}{16}
+\indexentry{getdevinfo.cygwin (module)@\spxentry{getdevinfo.cygwin}\spxextra{module}|hyperpage}{17}
+\indexentry{compute\_block\_size() (in module getdevinfo.cygwin)@\spxentry{compute\_block\_size()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{17}
+\indexentry{get\_block\_size() (in module getdevinfo.cygwin)@\spxentry{get\_block\_size()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{17}
+\indexentry{get\_boot\_record() (in module getdevinfo.cygwin)@\spxentry{get\_boot\_record()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{18}
+\indexentry{get\_capabilities() (in module getdevinfo.cygwin)@\spxentry{get\_capabilities()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{18}
+\indexentry{get\_capacity() (in module getdevinfo.cygwin)@\spxentry{get\_capacity()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{18}
+\indexentry{get\_description() (in module getdevinfo.cygwin)@\spxentry{get\_description()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{18}
+\indexentry{get\_device\_info() (in module getdevinfo.cygwin)@\spxentry{get\_device\_info()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{19}
+\indexentry{get\_file\_system() (in module getdevinfo.cygwin)@\spxentry{get\_file\_system()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{19}
+\indexentry{get\_id() (in module getdevinfo.cygwin)@\spxentry{get\_id()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{19}
+\indexentry{get\_info() (in module getdevinfo.cygwin)@\spxentry{get\_info()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{20}
+\indexentry{get\_partition\_info() (in module getdevinfo.cygwin)@\spxentry{get\_partition\_info()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{20}
+\indexentry{get\_partitioning() (in module getdevinfo.cygwin)@\spxentry{get\_partitioning()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{20}
+\indexentry{get\_product() (in module getdevinfo.cygwin)@\spxentry{get\_product()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{20}
+\indexentry{get\_uuid() (in module getdevinfo.cygwin)@\spxentry{get\_uuid()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{21}
+\indexentry{get\_vendor() (in module getdevinfo.cygwin)@\spxentry{get\_vendor()}\spxextra{in module getdevinfo.cygwin}|hyperpage}{21}
+\indexentry{getdevinfo.macos (module)@\spxentry{getdevinfo.macos}\spxextra{module}|hyperpage}{23}
+\indexentry{compute\_block\_size() (in module getdevinfo.macos)@\spxentry{compute\_block\_size()}\spxextra{in module getdevinfo.macos}|hyperpage}{23}
+\indexentry{get\_block\_size() (in module getdevinfo.macos)@\spxentry{get\_block\_size()}\spxextra{in module getdevinfo.macos}|hyperpage}{23}
+\indexentry{get\_boot\_record() (in module getdevinfo.macos)@\spxentry{get\_boot\_record()}\spxextra{in module getdevinfo.macos}|hyperpage}{24}
+\indexentry{get\_capabilities() (in module getdevinfo.macos)@\spxentry{get\_capabilities()}\spxextra{in module getdevinfo.macos}|hyperpage}{24}
+\indexentry{get\_capacity() (in module getdevinfo.macos)@\spxentry{get\_capacity()}\spxextra{in module getdevinfo.macos}|hyperpage}{24}
+\indexentry{get\_description() (in module getdevinfo.macos)@\spxentry{get\_description()}\spxextra{in module getdevinfo.macos}|hyperpage}{24}
+\indexentry{get\_device\_info() (in module getdevinfo.macos)@\spxentry{get\_device\_info()}\spxextra{in module getdevinfo.macos}|hyperpage}{24}
+\indexentry{get\_file\_system() (in module getdevinfo.macos)@\spxentry{get\_file\_system()}\spxextra{in module getdevinfo.macos}|hyperpage}{24}
+\indexentry{get\_id() (in module getdevinfo.macos)@\spxentry{get\_id()}\spxextra{in module getdevinfo.macos}|hyperpage}{24}
+\indexentry{get\_info() (in module getdevinfo.macos)@\spxentry{get\_info()}\spxextra{in module getdevinfo.macos}|hyperpage}{24}
+\indexentry{get\_partition\_info() (in module getdevinfo.macos)@\spxentry{get\_partition\_info()}\spxextra{in module getdevinfo.macos}|hyperpage}{25}
+\indexentry{get\_partitioning() (in module getdevinfo.macos)@\spxentry{get\_partitioning()}\spxextra{in module getdevinfo.macos}|hyperpage}{25}
+\indexentry{get\_product() (in module getdevinfo.macos)@\spxentry{get\_product()}\spxextra{in module getdevinfo.macos}|hyperpage}{25}
+\indexentry{get\_uuid() (in module getdevinfo.macos)@\spxentry{get\_uuid()}\spxextra{in module getdevinfo.macos}|hyperpage}{25}
+\indexentry{get\_vendor() (in module getdevinfo.macos)@\spxentry{get\_vendor()}\spxextra{in module getdevinfo.macos}|hyperpage}{25}
+\indexentry{is\_partition() (in module getdevinfo.macos)@\spxentry{is\_partition()}\spxextra{in module getdevinfo.macos}|hyperpage}{26}

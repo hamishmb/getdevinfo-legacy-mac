@@ -1,0 +1,394 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Documentation for the macos module &#8212; GetDevInfo 1.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Documentation for the cygwin module" href="cygwin.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="cygwin.html" title="Documentation for the cygwin module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">GetDevInfo 1.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-getdevinfo.macos">
+<span id="documentation-for-the-macos-module"></span><h1>Documentation for the macos module<a class="headerlink" href="#module-getdevinfo.macos" title="Permalink to this headline">¶</a></h1>
+<p>This is the part of the package that contains the tools and information
+getters for macOS. This would normally be called from the getdevinfo
+module, but you can call it directly if you like.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can import this submodule directly, but it might result
+in strange behaviour, or not work on your platform if you
+import the wrong one. That is not how the package is intended
+to be used, except if you want to use the get_block_size()
+function to get a block size, as documented below.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Feel free to experiment, but be aware that you may be able to cause
+crashes, exceptions, and generally weird situations by calling
+these methods directly if you get it wrong. A good place to
+look if you’re interested in this is the unit tests (in tests/).</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This module won’t work properly unless it is executed as root.</p>
+</div>
+<dl class="function">
+<dt id="getdevinfo.macos.compute_block_size">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">compute_block_size</code><span class="sig-paren">(</span><em>disk</em>, <em>stdout</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.compute_block_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private, implementation detail.</p>
+<p>Used to process and tidy up the block size output from diskutil info.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>stdout (str):       diskutil info’s output.</dd>
+<dt>Returns:</dt>
+<dd><p class="first">int/None: The block size:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>None - Failed!</li>
+<li>int  - The block size.</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_block_size</span><span class="p">(</span><span class="o">&lt;</span><span class="n">stdoutFromDiskutil</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_block_size">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_block_size</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_block_size" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public</strong></p>
+<p>This function uses the diskutil info command to get the block size
+of the given device.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>disk (str):     The partition/device that</dt>
+<dd>we want the block size for.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p class="first">int/None. The block size.</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>None - Failed!</li>
+<li>int  - The block size.</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">block_size</span> <span class="o">=</span> <span class="n">get_block_size</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDeviceName</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_boot_record">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_boot_record</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_boot_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not yet implemented, returns (“Unknown”, “Unknown”).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_capabilities">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_capabilities</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_capabilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not yet implemented, returns “Unknown”</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_capacity">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_capacity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the capacity of the disk currently referenced in
+the diskutil info output we’re storing. You can’t really use this standalone.
+Also rounds it to a human-readable form, and returns both sizes.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><p class="first">tuple (string, string). The sizes (bytes, human-readable):</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>(“Unknown”, “Unknown”)     - Couldn’t find them.</li>
+<li>Anything else              - The sizes.</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">raw_size</span><span class="p">,</span> <span class="n">human_size</span> <span class="o">=</span> <span class="n">get_capacity</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_description">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_description</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function generates a human-readable description of the given disk.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>disk (str):   Name of a device/partition.</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>string. The description: This may contain various bits of info, or not,</dt>
+<dd>depending on what macOS knows about the disk.</dd>
+</dl>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">description</span> <span class="o">=</span> <span class="n">get_description</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_device_info">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_device_info</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_device_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gathers and assembles information for devices (whole disks).
+It employs some simple logic and the other functions defined in this
+module to do its work.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>disk (str): The name of a device, without the leading /dev. eg: disk1</dd>
+<dt>Returns:</dt>
+<dd>string.     The name of the device.</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">host_disk</span> <span class="o">=</span> <span class="n">get_device_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aNode</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_file_system">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_file_system</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_file_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not yet implemented, returns “Unknown”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_id">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_id</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not yet implemented, returns “Unknown”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_info">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is the macOS-specific way of getting disk information.
+It makes use of the diskutil list, and diskutil info commands to gather
+information.</p>
+<p>It uses the other functions in this module to acheive its work, and
+it <strong>doesn’t</strong> return the disk infomation. Instead, it is left as a
+global attribute in this module (DISKINFO).</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>Nothing, hopefully, but errors have a small chance of propagation
+up to here here. Wrap it in a try:, except: block if you are worried.</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_partition_info">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_partition_info</code><span class="sig-paren">(</span><em>disk</em>, <em>host_disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_partition_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gathers and assembles information for partitions.
+It employs some simple logic and the other functions defined in this
+module to do its work.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>disk (str):         The name of a partition, without the leading</dt>
+<dd>/dev. eg: disk1s1</dd>
+<dt>host_disk (str):    The “parent” or “host” device. eg: for</dt>
+<dd>/dev/disk1s1, the host disk would be /dev/disk1.
+Used to organise everything nicely in the
+disk info dictionary.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>string.     The name of the partition.</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">volume</span> <span class="o">=</span> <span class="n">get_device_info</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">aHostDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_partitioning">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_partitioning</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_partitioning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not yet implemented, returns “Unknown”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_product">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_product</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the product of the given disk.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>disk (str):   Name of a device/partition.</dd>
+<dt>Returns:</dt>
+<dd><p class="first">string. The product:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>“Unknown”     - Couldn’t find it.</li>
+<li>Anything else - The product.</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">product</span> <span class="o">=</span> <span class="n">get_product</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_uuid">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_uuid</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not yet implemented, returns “Unknown”.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.get_vendor">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">get_vendor</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.get_vendor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function gets the vendor of the given disk.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>disk (str):   Name of a device/partition.</dd>
+<dt>Returns:</dt>
+<dd><p class="first">string. The vendor:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>“Unknown”     - Couldn’t find it.</li>
+<li>Anything else - The vendor.</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vendor</span> <span class="o">=</span> <span class="n">get_vendor</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="getdevinfo.macos.is_partition">
+<code class="descclassname">getdevinfo.macos.</code><code class="descname">is_partition</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="headerlink" href="#getdevinfo.macos.is_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private, implementation detail.</p>
+<p>This function determines if a disk is a partition or not.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>disk (str):   Name of a device/partition.</dd>
+<dt>Returns:</dt>
+<dd><p class="first">bool:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>True  - Is a partition.</li>
+<li>False - Not a partition.</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_a_partition</span> <span class="o">=</span> <span class="n">is_partition</span><span class="p">(</span><span class="o">&lt;</span><span class="n">aDisk</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cygwin.html"
+                        title="previous chapter">Documentation for the cygwin module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/macos.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="cygwin.html" title="Documentation for the cygwin module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">GetDevInfo 1.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013-2020, Hamish McIntyre-Bhatty.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

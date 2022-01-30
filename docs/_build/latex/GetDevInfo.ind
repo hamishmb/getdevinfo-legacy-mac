@@ -1,0 +1,77 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{assemble\_lvm\_disk\_info()}\spxextra{in module getdevinfo.linux}, \hyperpage{11}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{compute\_block\_size()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{17}
+  \item \spxentry{compute\_block\_size()}\spxextra{in module getdevinfo.linux}, \hyperpage{11}
+  \item \spxentry{compute\_block\_size()}\spxextra{in module getdevinfo.macos}, \hyperpage{23}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{get\_block\_size()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{17}
+  \item \spxentry{get\_block\_size()}\spxextra{in module getdevinfo.linux}, \hyperpage{12}
+  \item \spxentry{get\_block\_size()}\spxextra{in module getdevinfo.macos}, \hyperpage{23}
+  \item \spxentry{get\_boot\_record()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{18}
+  \item \spxentry{get\_boot\_record()}\spxextra{in module getdevinfo.linux}, \hyperpage{12}
+  \item \spxentry{get\_boot\_record()}\spxextra{in module getdevinfo.macos}, \hyperpage{24}
+  \item \spxentry{get\_capabilities()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{18}
+  \item \spxentry{get\_capabilities()}\spxextra{in module getdevinfo.linux}, \hyperpage{12}
+  \item \spxentry{get\_capabilities()}\spxextra{in module getdevinfo.macos}, \hyperpage{24}
+  \item \spxentry{get\_capacity()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{18}
+  \item \spxentry{get\_capacity()}\spxextra{in module getdevinfo.linux}, \hyperpage{12}
+  \item \spxentry{get\_capacity()}\spxextra{in module getdevinfo.macos}, \hyperpage{24}
+  \item \spxentry{get\_description()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{18}
+  \item \spxentry{get\_description()}\spxextra{in module getdevinfo.macos}, \hyperpage{24}
+  \item \spxentry{get\_device\_info()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{19}
+  \item \spxentry{get\_device\_info()}\spxextra{in module getdevinfo.linux}, \hyperpage{13}
+  \item \spxentry{get\_device\_info()}\spxextra{in module getdevinfo.macos}, \hyperpage{24}
+  \item \spxentry{get\_file\_system()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{19}
+  \item \spxentry{get\_file\_system()}\spxextra{in module getdevinfo.linux}, \hyperpage{13}
+  \item \spxentry{get\_file\_system()}\spxextra{in module getdevinfo.macos}, \hyperpage{24}
+  \item \spxentry{get\_id()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{19}
+  \item \spxentry{get\_id()}\spxextra{in module getdevinfo.linux}, \hyperpage{13}
+  \item \spxentry{get\_id()}\spxextra{in module getdevinfo.macos}, \hyperpage{24}
+  \item \spxentry{get\_info()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{20}
+  \item \spxentry{get\_info()}\spxextra{in module getdevinfo.getdevinfo}, \hyperpage{9}
+  \item \spxentry{get\_info()}\spxextra{in module getdevinfo.linux}, \hyperpage{13}
+  \item \spxentry{get\_info()}\spxextra{in module getdevinfo.macos}, \hyperpage{24}
+  \item \spxentry{get\_lv\_aliases()}\spxextra{in module getdevinfo.linux}, \hyperpage{14}
+  \item \spxentry{get\_lv\_and\_vg\_name()}\spxextra{in module getdevinfo.linux}, \hyperpage{14}
+  \item \spxentry{get\_lv\_file\_system()}\spxextra{in module getdevinfo.linux}, \hyperpage{14}
+  \item \spxentry{get\_partition\_info()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{20}
+  \item \spxentry{get\_partition\_info()}\spxextra{in module getdevinfo.linux}, \hyperpage{15}
+  \item \spxentry{get\_partition\_info()}\spxextra{in module getdevinfo.macos}, \hyperpage{25}
+  \item \spxentry{get\_partitioning()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{20}
+  \item \spxentry{get\_partitioning()}\spxextra{in module getdevinfo.linux}, \hyperpage{15}
+  \item \spxentry{get\_partitioning()}\spxextra{in module getdevinfo.macos}, \hyperpage{25}
+  \item \spxentry{get\_product()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{20}
+  \item \spxentry{get\_product()}\spxextra{in module getdevinfo.linux}, \hyperpage{15}
+  \item \spxentry{get\_product()}\spxextra{in module getdevinfo.macos}, \hyperpage{25}
+  \item \spxentry{get\_uuid()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{21}
+  \item \spxentry{get\_uuid()}\spxextra{in module getdevinfo.linux}, \hyperpage{15}
+  \item \spxentry{get\_uuid()}\spxextra{in module getdevinfo.macos}, \hyperpage{25}
+  \item \spxentry{get\_vendor()}\spxextra{in module getdevinfo.cygwin}, \hyperpage{21}
+  \item \spxentry{get\_vendor()}\spxextra{in module getdevinfo.linux}, \hyperpage{16}
+  \item \spxentry{get\_vendor()}\spxextra{in module getdevinfo.macos}, \hyperpage{25}
+  \item \spxentry{getdevinfo.cygwin}\spxextra{module}, \hyperpage{17}
+  \item \spxentry{getdevinfo.getdevinfo}\spxextra{module}, \hyperpage{9}
+  \item \spxentry{getdevinfo.linux}\spxextra{module}, \hyperpage{11}
+  \item \spxentry{getdevinfo.macos}\spxextra{module}, \hyperpage{23}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{is\_partition()}\spxextra{in module getdevinfo.macos}, \hyperpage{26}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{parse\_lsblk\_output()}\spxextra{in module getdevinfo.linux}, \hyperpage{16}
+  \item \spxentry{parse\_lvm\_output()}\spxextra{in module getdevinfo.linux}, \hyperpage{16}
+
+\end{sphinxtheindex}

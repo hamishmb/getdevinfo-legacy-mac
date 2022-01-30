@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>Documentation for the output format</title>
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="documentation-for-the-output-format">
+<h1>Documentation for the output format</h1>
+<p>This module outputs data in a precisely-formatted dictionary object.
+In order for it to be useful, this format, and the information that
+is provided in it, needs to be explained precisely.</p>
+<p>This format is the same on Linux, macOS, and Cygwin (Windows), but the
+macOS and Cygwin versions of this library currently have less functionality,
+so some of the information isn’t present on those platforms version. Instead,
+placeholders like “N/A” or “Unknown” are used. Those instances will be pointed
+out here.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Linux and Cygwin, superuser/administrator privileges are required for
+GetDevInfo to work correctly.</p>
+</div>
+<div class="section" id="for-each-device-and-partition">
+<h2>For each device and partition:</h2>
+<p>A sub-dictionary is created with the name of that disk as its key.</p>
+<dl>
+<dt>For example:</dt>
+<dd><p>To access the info for /dev/disk1s1, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/disk1s1&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="inside-this-sub-dictionary-standard-devices">
+<h2>Inside this sub-dictionary (standard devices):</h2>
+<p>Various information is collected and organised here.</p>
+<dl>
+<dt>‘Name’:</dt>
+<dd><p>The disk’s name, stored as a string.</p>
+</dd>
+<dt>‘Type’:</dt>
+<dd><p>Whether the disk is a “Device” or “Partition”, stored as a string.</p>
+<dl>
+<dt>For example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;Device&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to Cygwin limitations, all disks are considered devices on Cygwin.</p>
+</div>
+</dd>
+<dt>‘HostDevice’:</dt>
+<dd><p>The “parent” or “host” device of a partition, stored as a string.
+For a device, this is always set to “N/A”. For an LVM disk, this is
+the host device of the containing partition. eg: /dev/sdb.</p>
+<dl>
+<dt>Example 1:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;HostDevice&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;N/A&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 2:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sde5&#39;</span><span class="p">][</span><span class="s1">&#39;HostDevice&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;/dev/sde&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 3:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/disk1s3&#39;</span><span class="p">][</span><span class="s1">&#39;HostDevice&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;/dev/disk1&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘Partitions’:</dt>
+<dd><p>All the partitions a device contains, stored as a list. For partitions,
+this is always set to [].</p>
+<dl>
+<dt>Example 1:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda1&#39;</span><span class="p">][</span><span class="s1">&#39;Partitions&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[]</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 2:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;Partitions&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="s2">&quot;/dev/sda1&quot;</span><span class="p">,</span> <span class="s2">&quot;/dev/sda2&quot;</span><span class="p">,</span> <span class="s2">&quot;/dev/sda3&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 3:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/disk0&#39;</span><span class="p">][</span><span class="s1">&#39;Partitions&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="s2">&quot;/dev/disk0s1&quot;</span><span class="p">,</span> <span class="s2">&quot;/dev/disk0s2&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet available on Cygwin.</p>
+</div>
+</dd>
+<dt>‘Vendor’:</dt>
+<dd><p>The device’s/partition’s vendor. For a device, this is often the brand. For
+partitions this is more random, but often has something to do with the
+file system type, or the OS that created the partition.</p>
+<dl>
+<dt>Example 1:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;Vendor&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;VBOX&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 2:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda1&#39;</span><span class="p">][</span><span class="s1">&#39;Vendor&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;Linux&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 3:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/disk0s1&#39;</span><span class="p">][</span><span class="s1">&#39;Vendor&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;VBOX&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not available for all disks yet on Cygwin.</p>
+</div>
+</dd>
+<dt>‘Product’:</dt>
+<dd><p>The device’s product information. Often model information such as a model
+name/number. For a partition, this is always the same as it’s host device’s
+product information, prefixed by “Host Device: “.</p>
+<dl>
+<dt>Example 1:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;Product&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;ST1000DM003-1CH1&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 2:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda1&#39;</span><span class="p">][</span><span class="s1">&#39;Product&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;Host Device: ST1000DM003-1CH1&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 3:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/disk0&#39;</span><span class="p">][</span><span class="s1">&#39;Product&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;HARDDISK&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not available for all disks yet on Cygwin.</p>
+</div>
+</dd>
+<dt>‘Capacity’, and ‘RawCapacity’:</dt>
+<dd><p>The disk’s capacity, in both human-readable form, and program-friendly form.
+Ignored for some types of disks, like optical drives. The human-readable
+capacity is rounded to make it a 3 digit number. The machine-readable size is
+measured in bytes, and it is not rounded.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not available for all disks yet on Cygwin.</p>
+</div>
+<dl>
+<dt>Example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;Capacity&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;500 GB&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;RawCapacity&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;500107862016&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘Description’:</dt>
+<dd><p>A human-readable description of the disk. Simply here to make it easier
+for a human to identify a disk. On Linux, these are the descriptions provided by
+lshw (except for logical volumes), and they are fairly basic. On macOS, these are
+generated using information from diskutil. On Cygwin, these are generated and provide
+information like the drive letter and bus used (eg ATA).</p>
+<dl>
+<dt>Example 1:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;ATA Disk&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 2:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/disk1&#39;</span><span class="p">][</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;Internal Hard Disk Drive (Connected through SATA)&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘Flags’:</dt>
+<dd><p>The disk’s capabilities, stored as a list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet available on macOS, Cygwin, or for logical volumes on Linux.</p>
+</div>
+<dl>
+<dt>For example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/cdrom&#39;</span><span class="p">][</span><span class="s1">&#39;Flags&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="s1">&#39;removable&#39;</span><span class="p">,</span> <span class="s1">&#39;audio&#39;</span><span class="p">,</span> <span class="s1">&#39;cd-r&#39;</span><span class="p">,</span> <span class="s1">&#39;cd-rw&#39;</span><span class="p">,</span> <span class="s1">&#39;dvd&#39;</span><span class="p">,</span> <span class="s1">&#39;dvd-r&#39;</span><span class="p">,</span> <span class="s1">&#39;dvd-ram&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘Partitioning’:</dt>
+<dd><p>The disk’s partition scheme. N/A for partitions and logical volumes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet available on macOS.</p>
+</div>
+<dl>
+<dt>Example 1:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;Partitioning&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;gpt&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example 2:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sdb&#39;</span><span class="p">][</span><span class="s1">&#39;Partitioning&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;mbr&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘FileSystem’:</dt>
+<dd><p>The disk’s file system. N/A for devices.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet available on macOS.</p>
+</div>
+<dl>
+<dt>Example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;FileSystem&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;ext4&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘UUID’:</dt>
+<dd><p>This disk’s UUID. N/A for devices. Length changes based on filesystem
+type. For example, vfat UUIDs are shorter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet available on macOS.</p>
+</div>
+<dl>
+<dt>Example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda1&#39;</span><span class="p">][</span><span class="s1">&#39;UUID&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">XXXX</span><span class="o">-</span><span class="n">XXXX</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘ID’:</dt>
+<dd><p>The disk’s ID.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet available on macOS or Cygwin.</p>
+</div>
+<dl>
+<dt>Example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/sda&#39;</span><span class="p">][</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;usb-Generic_STORAGE_DEVICE_000000001206-0:1&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘BootRecord’, ‘BootRecordStrings’:</dt>
+<dd><p>The MBR/PBR of the disk. Can be useful in identifying the bootloader that
+resides there, if any.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet available on macOS.</p>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="inside-this-sub-dictionary-specifics-for-lvm-disks-on-linux">
+<h2>Inside this sub-dictionary (specifics for LVM disks on Linux):</h2>
+<p>These are keys that are only present for LVM disks (where “Product” is “LVM Partition”).</p>
+<dl>
+<dt>‘Aliases’:</dt>
+<dd><p>Any aliases the disk has. LVM disks can often be accessed using multiple
+different names. This is a list of those names.</p>
+<dl>
+<dt>Example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/mapper/fedora/root&#39;</span><span class="p">][</span><span class="s1">&#39;Aliases&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="s1">&#39;/dev/mapper/fedora/root&#39;</span><span class="p">,</span> <span class="s1">&#39;/dev/fedora--localhost-root&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘LVName’:</dt>
+<dd><p>The name of the logical volume.</p>
+<dl>
+<dt>Example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/mapper/fedora/root&#39;</span><span class="p">][</span><span class="s1">&#39;LVName&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;root&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘VGName’:</dt>
+<dd><p>The name of the volume group the logical volume belongs to.</p>
+<dl>
+<dt>Example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/mapper/fedora/root&#39;</span><span class="p">][</span><span class="s1">&#39;VGName&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;fedora&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>‘HostPartition’:</dt>
+<dd><p>The partition that contains this logical volume.</p>
+<dl>
+<dt>Example:</dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DISKINFO</span><span class="p">[</span><span class="s1">&#39;/dev/mapper/fedora/root&#39;</span><span class="p">][</span><span class="s1">&#39;HostPartition&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;/dev/sda&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not always available depending on disk configuration.</p>
+</div>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>“UUID” may or may not be available for certain disks.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>“Capacity” and “RawCapacity” may not be available for certain disks.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>“HostPartition” and “HostDevice” may not be available for certain disks.</p>
+</div>
+</div>
+<div class="section" id="inside-this-sub-dictionary-nvme-disks">
+<h2>Inside this sub-dictionary (NVME disks):</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Various standard keys are not available for NVME disks as they aren’t supported by lshw.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>
