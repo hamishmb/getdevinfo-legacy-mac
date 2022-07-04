@@ -20,7 +20,6 @@ setup(
 
     url='https://www.hamishmb.com/',
     author='Hamish McIntyre-Bhatty',
-    author_email='hamishmb@live.co.uk',
     license='GPLv3+',
 
     classifiers=[
